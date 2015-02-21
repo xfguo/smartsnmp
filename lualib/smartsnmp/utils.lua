@@ -52,25 +52,12 @@ end
 -- convert oid string to oid lua table
 -----------------------------------------
 utils.str2oid = function (s)
-    local oid = {}
-    for n in string.gmatch(s, '%d+') do
-        table.insert(oid, tonumber(n))
-    end
-    return oid
+	local oid = {}
+	for n in string.gmatch(s, '%d+') do
+		table.insert(oid, tonumber(n))
+	end
+	return oid
 end
-
-local hexval = function(x)
-    if x >= string.byte('0') and x <= string.byte('9') then
-        return x - string.byte('0')
-    elseif x >= string.byte('a') and x <= string.byte('f') then
-        return x - string.byte('a') + 10
-    elseif x >= string.byte('A') and x <= string.byte('F') then
-        return x - string.byte('A') + 10
-    else
-        assert(0)
-    end
-end
-
 
 --------------------------------------------------------------------------------
 -- iter
@@ -80,7 +67,7 @@ end
 -- the _o_ will be return directly.
 --------------------------------------------------------------------------------
 utils.iter = function(o)
-	if type(t) == 'function' then
+	if type(o) == 'function' then
 		return o
 	else
 		local i = 0

@@ -6,7 +6,7 @@ local utils = require "smartsnmp.utils"
 
 module("test_utils", lunit.testcase, package.seeall)
 
-test_iter = function()
+test_iter1 = function()
 	-- test iter
 	local i = 0
 	for v in utils.iter({1, 2, 3, 4, 5}) do
@@ -14,6 +14,17 @@ test_iter = function()
 		assert_true(v == i)
 	end
 	assert_true(i == 5)
+end
+
+test_iter2 = function()
+	-- test iter
+	local i = utils.iter(function() return nil end)
+
+	local x = true
+	for v in i do
+		x = false
+	end
+	assert_true(x)
 end
 
 -- helper: compare 2 array table

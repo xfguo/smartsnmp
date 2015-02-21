@@ -9,7 +9,7 @@ env:
 
 install:
   - "sudo apt-get install -yq $LUA $lib$LUA-0-dev python-pexpect snmp luarocks"
-  - "sudo pip -q install --upgrade PyYAML cpp-coveralls"
+  - "sudo pip -q -H install PyYAML cpp-coveralls"
   - "sudo luarocks install Lua-cURL"
   - "sudo luarocks install luacov-coveralls"
   - "sudo luarocks install lunitx"
