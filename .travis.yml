@@ -49,7 +49,7 @@ script:
         scons --transport=$TRANSPORT --gcov=yes;
     fi"
   - "sudo LUACOV=1 SYS_LUA_PATH=`$LUA -e 'print(package.path)'` LUA=$LUA python ./tests/test_all.py"
-  - "sudo chmod +w luacov.stats.out"
+  - "sudo chmod 666 luacov.stats.out"
   - "$LUA -lluacov tests/test_utils.lua"
 
 after_success:
