@@ -12,6 +12,7 @@ install:
   - "sudo pip -q install PyYAML cpp-coveralls"
   - "sudo luarocks install Lua-cURL"
   - "sudo luarocks install luacov-coveralls"
+  - "sudo luarocks install lunitx"
   - "if [ $TRANSPORT = 'libevent' ]; then
         sudo apt-get install -yq libevent-dev;
     fi"
@@ -48,6 +49,7 @@ script:
         scons --transport=$TRANSPORT --gcov=yes;
     fi"
   - "sudo LUACOV=1 SYS_LUA_PATH=`$LUA -e 'print(package.path)'` LUA=$LUA python ./tests/test_all.py"
+  - "$LUA -lluacov tests/test_utils.lua"
 
 after_success:
   - "cpp-coveralls -b . -e. -e .sconf_temp `ls core/*.gcno | sed 's/\\.gcno$/.c/' | sed 's/^/-i /'` --dump c.report.json"
