@@ -53,6 +53,7 @@ script:
 
 after_success:
   - "cpp-coveralls -b . -e. -e .sconf_temp `ls core/*.gcno | sed 's/\\.gcno$/.c/' | sed 's/^/-i /'` --dump c.report.json"
+  - "cat c.report.json"
   - "luacov-coveralls -j c.report.json -i bin/smartsnmpd -i lualib/smartsnmp/init.lua -i lualib/smartsnmp/utils.lua"
 
 after_failure:
