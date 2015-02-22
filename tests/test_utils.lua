@@ -1,4 +1,4 @@
-lunit = require "lunitx"
+local lunit = require "lunit"
 
 package.path = 'lualib/?/init.lua;lualib/?.lua;'..package.path
 
@@ -105,3 +105,4 @@ test_mac2oct = function()
 	assert_true(utils.mac2oct("61:62:63:64:65:66") == 'abcdef')
 end
 
+lunit.main()
