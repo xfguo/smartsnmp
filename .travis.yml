@@ -6,6 +6,8 @@ env:
     - "LUA=lua5.1 TRANSPORT=built-in EVLOOP=select"
     - "LUA=lua5.1 TRANSPORT=libevent"
     - "LUA=lua5.1 TRANSPORT=uloop"
+  global:
+   - secure: "YltQl8JYyr3hX6GVGp4RitE3Ay4jcIDEvkix54pvN2LtNkpSMnuaHqQ3CVZN58Eh97cjACEfoTCKO8GaVFtYaSefePF7G3wN+T6VLD8/IACau87DA7QHvl7r/HI039OvJgIg9zrOAiSaidRpZkzRi6tafNQlBFfmz2hynKEROxo="
 
 install:
   - "sudo apt-get install -yq $LUA $lib$LUA-0-dev python-pexpect snmp luarocks"
@@ -60,3 +62,21 @@ after_failure:
   - "cat config.log"
   - "cat tests/test.log"
 
+addons:
+  coverity_scan:
+    project:
+      name: "xfguo/smartsnmp"
+      description: "Build submitted via Travis CI"
+    notification_email: supereic@gmail.com
+    build_command_prepend: ""
+    build_command:
+      - "if [ $TRANSPORT = 'uloop' ]; then
+            export LDFLAGS='-L./libubox' &&
+            export CFLAGS='-I.';
+        fi"
+      - "if [ $TRANSPORT = 'built-in' ]; then
+            scons --transport=$TRANSPORT --evloop=$EVLOOP --gcov=yes;
+        else
+            scons --transport=$TRANSPORT --gcov=yes;
+        fi"
+    branch_pattern: coverity_scan
