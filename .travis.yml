@@ -69,14 +69,8 @@ addons:
       description: "Build submitted via Travis CI"
     notification_email: supereic@gmail.com
     build_command_prepend: ""
+      - "export LDFLAGS='-L./libubox'"
+      - "export CFLAGS='-I.'"
     build_command:
-      - "if [ $TRANSPORT = 'uloop' ]; then
-            export LDFLAGS='-L./libubox' &&
-            export CFLAGS='-I.';
-        fi"
-      - "if [ $TRANSPORT = 'built-in' ]; then
-            scons --transport=$TRANSPORT --evloop=$EVLOOP --gcov=yes;
-        else
-            scons --transport=$TRANSPORT --gcov=yes;
-        fi"
+      - "scons --transport=$TRANSPORT --evloop=$EVLOOP"
     branch_pattern: coverity_scan
